@@ -44,4 +44,5 @@ yarn-error.log*
 database/demo-setup.sql
 database/*-dump.sql
 # Markdown / internal documentation
-*.md
+*.mddatabase/create-editor-user.sql
+database/example-related-products.sql
