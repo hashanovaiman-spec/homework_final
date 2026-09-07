@@ -1,0 +1,240 @@
+{
+  "info": {
+    "_postman_id": "a26f1d8f-6d36-4a86-a964-shopprojectfinal",
+    "name": "Shop.API Final Project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api"
+    }
+  ],
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "GET products",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/products"
+          }
+        },
+        {
+          "name": "GET product by id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/products/34e1a2a7-d0a9-4c7a-99f6-c2d5b5afaa06"
+          }
+        },
+        {
+          "name": "GET search products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/products/search?title=Galaxy&priceFrom=10000&priceTo=40000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "products",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "title",
+                  "value": "Galaxy"
+                },
+                {
+                  "key": "priceFrom",
+                  "value": "10000"
+                },
+                {
+                  "key": "priceTo",
+                  "value": "40000"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST create product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Test phone\",\n  \"description\": \"Created from Postman\",\n  \"price\": 9999.99\n}"
+            },
+            "url": "{{baseUrl}}/products"
+          }
+        },
+        {
+          "name": "PATCH product",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Galaxy A52 updated\",\n  \"description\": \"Updated description\",\n  \"price\": 18000.0\n}"
+            },
+            "url": "{{baseUrl}}/products/34e1a2a7-d0a9-4c7a-99f6-c2d5b5afaa06"
+          }
+        },
+        {
+          "name": "DELETE product",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/products/36239a24-f71d-4f11-a93e-506775f882e9"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Similar Products",
+      "item": [
+        {
+          "name": "GET similar products",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/products/similar/34e1a2a7-d0a9-4c7a-99f6-c2d5b5afaa06"
+          }
+        },
+        {
+          "name": "POST add similar pairs",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"productId\": \"34e1a2a7-d0a9-4c7a-99f6-c2d5b5afaa06\",\n    \"similarProductId\": \"88a3f826-9c3d-4f7c-a56e-156d7c3f3b28\"\n  },\n  {\n    \"productId\": \"34e1a2a7-d0a9-4c7a-99f6-c2d5b5afaa06\",\n    \"similarProductId\": \"9b4d4a1a-5224-4ad4-b4e3-053dcbfa0f3c\"\n  }\n]"
+            },
+            "url": "{{baseUrl}}/products/similar/add"
+          }
+        },
+        {
+          "name": "POST remove all relations for ids",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"34e1a2a7-d0a9-4c7a-99f6-c2d5b5afaa06\"\n]"
+            },
+            "url": "{{baseUrl}}/products/similar/remove"
+          }
+        },
+        {
+          "name": "GET similar invalid UUID (400 example)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/products/similar/not-a-uuid"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Comments",
+      "item": [
+        {
+          "name": "GET comments",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/comments"
+          }
+        },
+        {
+          "name": "GET comment by id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/comments/20000000-0000-4000-8000-000000000001"
+          }
+        },
+        {
+          "name": "GET comment invalid UUID (400 example)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/comments/12345"
+          }
+        },
+        {
+          "name": "POST comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Postman comment\",\n  \"email\": \"postman@example.com\",\n  \"body\": \"Created from Postman\",\n  \"productId\": \"34e1a2a7-d0a9-4c7a-99f6-c2d5b5afaa06\"\n}"
+            },
+            "url": "{{baseUrl}}/comments"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "POST auth admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin_super_password\"\n}"
+            },
+            "url": "{{baseUrl}}/auth"
+          }
+        },
+        {
+          "name": "POST auth empty body (400 example)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": "{{baseUrl}}/auth"
+          }
+        }
+      ]
+    }
+  ]
+}

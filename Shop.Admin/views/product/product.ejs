@@ -1,0 +1,98 @@
+<h1><%= isNew ? "New product" : item.title %></h1>
+
+<form
+    action="/<%= process.env.ADMIN_PATH %>/<%= isNew ? 'create-product' : `save/${item.id}` %>"
+    method="post"
+    class="product-edit-form"
+>
+    <div class="product-edit-fields">
+        <div class="field">
+            <label for="item-title">Title:</label>
+            <input id="item-title" type="text" name="title" value="<%= item.title %>" required />
+        </div>
+
+        <div class="field">
+            <label for="item-description">Description:</label>
+            <textarea id="item-description" rows="4" name="description"><%= item.description %></textarea>
+        </div>
+
+        <div class="field">
+            <label for="item-price">Price:</label>
+            <input id="item-price" type="number" step="0.01" min="0" name="price" value="<%= item.price %>" required />
+        </div>
+
+        <% if (!isNew) { %>
+            <div class="field">
+                <label for="item-new-images">New image URLs (comma or line break):</label>
+                <textarea id="item-new-images" rows="3" name="newImages"></textarea>
+            </div>
+        <% } %>
+    </div>
+
+    <% if (!isNew && item.comments?.length) { %>
+        <h2>Comments</h2>
+        <div class="product-edit-comments">
+            <% item.comments.forEach(function(comment) { %>
+                <%- include('product-comment', { comment }) %>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <% if (!isNew && item.images?.length) { %>
+        <h2>Images</h2>
+        <div class="product-edit-images">
+            <% item.images.forEach(function(image) { %>
+                <%- include('product-image', { image }) %>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <% if (!isNew) { %>
+        <section class="similar-section">
+            <h2>Similar products</h2>
+            <% if (similarProducts.length) { %>
+                <div class="similar-grid">
+                    <% similarProducts.forEach(function(product) { %>
+                        <label class="similar-card">
+                            <strong><%= product.title %></strong>
+                            <span><%= product.price %></span>
+                            <span>
+                                <input type="checkbox" name="similarToRemove" value="<%= product.id %>" />
+                                mark to remove
+                            </span>
+                        </label>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <p>No similar products yet.</p>
+            <% } %>
+        </section>
+
+        <section class="similar-section">
+            <h2>Add similar products</h2>
+            <% if (availableProducts.length) { %>
+                <div class="similar-grid">
+                    <% availableProducts.forEach(function(product) { %>
+                        <label class="similar-card">
+                            <strong><%= product.title %></strong>
+                            <span><%= product.price %></span>
+                            <span>
+                                <input type="checkbox" name="similarToAdd" value="<%= product.id %>" />
+                                add to similar
+                            </span>
+                        </label>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <p>There are no other products available.</p>
+            <% } %>
+        </section>
+    <% } %>
+
+    <div class="product-edit-footer">
+        <button type="submit">Save changes</button>
+        <% if (!isNew) { %>
+            <a class="danger-link" href="/<%= process.env.ADMIN_PATH %>/remove-product/<%= item.id %>">Delete product</a>
+        <% } %>
+    </div>
+</form>

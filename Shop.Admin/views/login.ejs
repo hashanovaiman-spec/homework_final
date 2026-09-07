@@ -1,0 +1,12 @@
+<h1>Admin login</h1>
+<form action="/<%= process.env.ADMIN_PATH %>/auth/authenticate" method="post" class="login-form">
+    <p>
+        <label for="username">Username:</label>
+        <input id="username" type="text" name="username" required />
+    </p>
+    <p>
+        <label for="password">Password:</label>
+        <input id="password" type="password" name="password" required />
+    </p>
+    <button type="submit">Login</button>
+</form>

@@ -1,0 +1,8 @@
+{
+  "ext": "ts,json,ejs,css",
+  "ignore": [
+    "Shop.Client/dist/**",
+    "Shop.Client/node_modules/**"
+  ],
+  "exec": "ts-node --files -r tsconfig-paths/register ./index.ts"
+} 

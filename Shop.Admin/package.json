@@ -1,0 +1,14 @@
+{
+  "name": "shop-admin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MVC/EJS admin module used by the root Shop.Project server",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "body-parser": "^1.20.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.1"
+  }
+}
